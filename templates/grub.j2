@@ -1,0 +1,102 @@
+{{ '## ' + 'grub' }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% for g in hostvars[inventory_hostname]['grub'] %}
+{% if g.default is defined and g.default != '' %}
+{{ 'GRUB_DEFAULT' ~ '=' ~ g.default }}
+{% endif %}
+{% if g.savedefault is defined and g.savedefault != '' %}
+{{ 'GRUB_SAVEDEFAULT' + '=' + g.savedefault }}
+{% endif %}
+{% if g.timeout is defined and g.timeout != '' %}
+{{ 'GRUB_TIMEOUT' + '=' + g.timeout }}
+{% endif %}
+{% if g.timeout_style is defined and g.timeout_style != '' %}
+{{ 'GRUB_TIMEOUT_STYLE' + '=' + g.timeout_style }}
+{% endif %}
+{% if g.distributor is defined and g.distributor != '' %}
+{{ 'GRUB_DISTRIBUTOR' ~ '=\"' ~ g.distributor ~ '\"' }}
+{% endif %}
+{% if g.terminal_input is defined and g.terminal_input != '' %}
+{{ 'GRUB_TERMINAL_INPUT' ~ '=\"' ~ g.terminal_input | join( ' ' ) ~ '\"' }}
+{% endif %}
+{% if g.terminal_output is defined and g.terminal_output != '' %}
+{{ 'GRUB_TERMINAL_OUTPUT' ~ '=\"' ~ g.terminal_output | join( ' ' ) ~ '\"' }}
+{% endif %}
+{% if g.terminal is defined and g.terminal != '' %}
+{{ 'GRUB_TERMINAL' ~ '=\"' ~ g.terminal | join( ' ' ) ~ '\"' }}
+{% endif %}
+{% if g.serial_command is defined and g.serial_command != '' %}
+{{ 'GRUB_SERIAL_COMMAND' ~ '=\"' ~ g.serial_command ~ '\"' }}
+{% endif %}
+{% if g.disable_linux_uuid is defined and g.disable_linux_uuid in ['true', 'false'] %}
+{{ 'GRUB_DISABLE_LINUX_UUID' + '=' + g.disable_linux_uuid }}
+{% endif %}
+{% if g.disable_recovery is defined and g.disable_recovery in ['true', 'false'] %}
+{{ 'GRUB_DISABLE_RECOVERY' + '=\"' + g.disable_recovery + '\"' }}
+{% endif %}
+{% if g.video_backend is defined and g.video_backend != '' %}
+{{ 'GRUB_VIDEO_BACKEND' + '=\"' + g.video_backend + '\"' }}
+{% endif %}
+{% if g.gfxmode is defined and g.gfxmode != '' %}
+{{ 'GRUB_GFXMODE' + '=\"' + g.gfxmode + '\"' }}
+{% endif %}
+{% if g.background is defined and g.background != '' %}
+{{ 'GRUB_BACKGROUND' + '=\"' + g.background + '\"' }}
+{% endif %}
+{% if g.theme is defined and g.theme != '' %}
+{{ 'GRUB_THEME' + '=\"' + g.theme + '\"' }}
+{% endif %}
+{% if g.gfxpayload_linux is defined and g.gfxpayload_linux != '' %}
+{{ 'GRUB_GFXPAYLOAD_LINUX' + '=\"' + g.gfxpayload_linux + '\"' }}
+{% endif %}
+{% if g.disable_os_prober is defined and g.disable_os_prober in ['true', 'false'] %}
+{{ 'GRUB_DISABLE_OS_PROBER' + '=\"' + g.disable_os_prober + '\"' }}
+{% endif %}
+{% if g.os_prober_skip_list is defined and g.os_prober_skip_list != '' %}
+{{ 'GRUB_OS_PROBER_SKIP_LIST' + '=\"' + g.os_prober_skip_list | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.disable_submenu is defined and g.disable_submenu != '' %}
+{{ 'GRUB_DISABLE_SUBMENU' + '=\"' + g.disable_submenu + '\"' }}
+{% endif %}
+{% if g.enable_cryptodisk is defined and g.enable_cryptodisk != '' %}
+{{ 'GRUB_ENABLE_CRYPTODISK' + '=\"' + g.enable_cryptodisk + '\"' }}
+{% endif %}
+{% if g.init_tune is defined and g.init_tune != '' %}
+{{ 'GRUB_INIT_TUNE' + '=\"' + g.init_tune + '\"' }}
+{% endif %}
+{% if g.badram is defined and g.badram != '' %}
+{{ 'GRUB_BADRAM' + '=\"' + g.badram + '\"' }}
+{% endif %}
+{% if g.preload_modules is defined and g.preload_modules != '' %}
+{{ 'GRUB_PRELOAD_MODULES' + '=\"' + g.preload_modules | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_linux is defined and g.cmdline_linux != '' %}
+{{ 'GRUB_CMDLINE_LINUX' + '=\"' + g.cmdline_linux | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_linux_default is defined and g.cmdline_linux_default != '' %}
+{{ 'GRUB_CMDLINE_LINUX_DEFAULT' + '=\"' + g.cmdline_linux_default | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_netbsd is defined and g.cmdline_netbsd != '' %}
+{{ 'GRUB_CMDLINE_NETBSD' + '=\"' + g.cmdline_netbsd | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_netbsd_default is defined and g.cmdline_netbsd_default != '' %}
+{{ 'GRUB_CMDLINE_NETBSD_DEFAULT' + '=\"' + g.cmdline_netbsd_default | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_gnumach is defined and g.cmdline_gnumach != '' %}
+{{ 'GRUB_CMDLINE_GNUMACH' + '=\"' + g.cmdline_gnumach | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_xen is defined and g.cmdline_xen != '' %}
+{{ 'GRUB_CMDLINE_XEN' + '=\"' + g.cmdline_xen | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_xen_default is defined and g.cmdline_xen_default != '' %}
+{{ 'GRUB_CMDLINE_XEN_DEFAULT' + '=\"' + g.cmdline_xen_default | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_linux_xen_replace is defined and g.cmdline_linux_xen_replace != '' %}
+{{ 'GRUB_CMDLINE_LINUX_XEN_REPLACE' + '=\"' + g.cmdline_linux_xen_replace | join( ' ' ) + '\"' }}
+{% endif %}
+{% if g.cmdline_linux_xen_replace_default is defined and g.cmdline_linux_xen_replace_default != '' %}
+{{ 'GRUB_CMDLINE_LINUX_XEN_REPLACE_DEFAULT' + '=\"' + g.cmdline_linux_xen_replace_default | join( ' ' ) + '\"' }}
+{% endif %}
+{% endfor %}
