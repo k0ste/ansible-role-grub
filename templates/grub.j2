@@ -4,16 +4,16 @@
 
 {% for g in hostvars[inventory_hostname]['grub'] %}
 {% if g.default is defined and g.default != '' %}
-{{ 'GRUB_DEFAULT' ~ '=' ~ g.default }}
+{{ 'GRUB_DEFAULT' ~ '=\"' ~ g.default + '\"' }}
 {% endif %}
 {% if g.savedefault is defined and g.savedefault != '' %}
-{{ 'GRUB_SAVEDEFAULT' + '=' + g.savedefault }}
+{{ 'GRUB_SAVEDEFAULT' + '=\"' + g.savedefault + '\"' }}
 {% endif %}
 {% if g.timeout is defined and g.timeout != '' %}
-{{ 'GRUB_TIMEOUT' + '=' + g.timeout }}
+{{ 'GRUB_TIMEOUT' + '=\"' + g.timeout + '\"' }}
 {% endif %}
 {% if g.timeout_style is defined and g.timeout_style != '' %}
-{{ 'GRUB_TIMEOUT_STYLE' + '=' + g.timeout_style }}
+{{ 'GRUB_TIMEOUT_STYLE' + '=\"' + g.timeout_style + "\"" }}
 {% endif %}
 {% if g.distributor is defined and g.distributor != '' %}
 {{ 'GRUB_DISTRIBUTOR' ~ '=\"' ~ g.distributor ~ '\"' }}
@@ -31,7 +31,7 @@
 {{ 'GRUB_SERIAL_COMMAND' ~ '=\"' ~ g.serial_command ~ '\"' }}
 {% endif %}
 {% if g.disable_linux_uuid is defined and g.disable_linux_uuid in ['true', 'false'] %}
-{{ 'GRUB_DISABLE_LINUX_UUID' + '=' + g.disable_linux_uuid }}
+{{ 'GRUB_DISABLE_LINUX_UUID' + '=\"' + g.disable_linux_uuid + '\"' }}
 {% endif %}
 {% if g.disable_recovery is defined and g.disable_recovery in ['true', 'false'] %}
 {{ 'GRUB_DISABLE_RECOVERY' + '=\"' + g.disable_recovery + '\"' }}
@@ -47,6 +47,12 @@
 {% endif %}
 {% if g.theme is defined and g.theme != '' %}
 {{ 'GRUB_THEME' + '=\"' + g.theme + '\"' }}
+{% endif %}
+{% if g.color_normal is defined and g.color_normal != '' %}
+{{ 'GRUB_COLOR_NORMAL' + '=\"' + g.color_normal + '\"' }}
+{% endif %}
+{% if g.color_highlight is defined and g.color_highlight != '' %}
+{{ 'GRUB_COLOR_HIGHLIGHT' + '=\"' + g.color_highlight + '\"' }}
 {% endif %}
 {% if g.gfxpayload_linux is defined and g.gfxpayload_linux != '' %}
 {{ 'GRUB_GFXPAYLOAD_LINUX' + '=\"' + g.gfxpayload_linux + '\"' }}

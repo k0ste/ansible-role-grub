@@ -1,0 +1,6 @@
+---
+- include: pre_requisite.yml
+- include: deploy_grub.yml
+  when:
+  - "hostvars[inventory_hostname]['grub'] is defined"
+  - "hostvars[inventory_hostname]['grub'] != ''"

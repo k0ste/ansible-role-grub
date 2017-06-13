@@ -1,5 +1,5 @@
 ansible-grub
-=================
+==============
 
 Deploy grub default configuration and make grub.cfg
 
@@ -13,6 +13,9 @@ Example configuration
 
 ```yaml
 ---
+# Set to true to execute grub-mkconfig and override real boot config.
+grub_deploy_grub_conf: 'true'
+
 grub:
 # The file /etc/default/grub controls the operation of grub-mkconfig.
 # Valid keys in /etc/default/grub are as follows:
@@ -53,14 +56,15 @@ grub:
 # Set by distributors of GRUB to their identifying name. This is used to
 # generate more informative menu entry titles.
   distributor: 'Arch'
-# Select the terminal input device. You may select multiple devices here,
-# separated by spaces. Valid terminal input names depend on the platform, but
-# may include 'console' (native platform console), 'serial' (serial terminal),
-# 'serial_<port>' (serial terminal with explicit port selection), 'at_keyboard'
-# (PC AT keyboard), or 'usb_keyboard' (USB keyboard using the HID Boot Protocol,
-# for cases where the firmware does not handle this). The default is to use the
-# platform’s native terminal input.
-  terminal_input: 'console'
+# Select the terminal input device. You may select multiple devices here. Valid
+# terminal input names depend on the platform, but may include 'console' (native
+# platform console), 'serial' (serial terminal), 'serial_<port>' (serial
+# terminal with explicit port selection), 'at_keyboard' (PC AT keyboard), or
+# 'usb_keyboard' (USB keyboard using the HID Boot Protocol, for cases where the
+# firmware does not handle this). The default is to use the platform’s native
+# terminal input.
+  terminal_input:
+  - 'console'
 # Select the terminal output device. You may select multiple devices here,
 # separated by spaces. Valid terminal output names depend on the platform, but
 # may include 'console' (native platform console), 'serial' (serial terminal),
@@ -69,10 +73,12 @@ grub:
 # output), 'morse' (Morse-coding using system beeper) or 'spkmodem' (simple data
 # protocol using system speaker). The default is to use the platform’s native
 # terminal output.
-  terminal_output: 'console'
+  terminal_output:
+  - 'console'
 # If this option is set, it overrides both 'GRUB_TERMINAL_INPUT' and
 # 'GRUB_TERMINAL_OUTPUT' to the same value.
-  terminal: 'console'
+  terminal:
+  - 'console'
 # A command to configure the serial port when using the serial console.
 # Defaults to 'serial'.
   serial_command: 'serial'

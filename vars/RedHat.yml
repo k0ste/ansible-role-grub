@@ -1,0 +1,3 @@
+---
+grub_boot_conf_dest: '/boot/grub2/grub.cfg'
+grub_mkconfig_command: 'grub2-mkconfig'
