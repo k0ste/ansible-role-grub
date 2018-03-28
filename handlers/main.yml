@@ -1,6 +1,7 @@
 ---
 - name: Deploy grub.conf
-  command: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] + ' -o ' + hostvars[inventory_hostname]['grub_boot_conf_dest'] }}"
+  command: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] + ' -o ' +
+               hostvars[inventory_hostname]['grub_boot_conf_dest'] }}"
   when:
   - "hostvars[inventory_hostname]['grub_deploy_grub_conf'] is defined"
   - "hostvars[inventory_hostname]['grub_deploy_grub_conf'] == 'true'"

@@ -1,15 +1,12 @@
-ansible-grub
-==============
+# ansible-grub
 
 Deploy grub default configuration and make grub.cfg
 
-Requirements
----------------
+## Requirements
 
-* Ansible 2.0;
+* Ansible 2.4;
 
-Example configuration
--------------------------
+## Example configuration
 
 ```yaml
 ---
@@ -120,7 +117,8 @@ grub:
 # distribution, your graphics card, and the phase of the moon, note that using
 # this option may cause GNU/Linux to suffer from various display problems,
 # particularly during the early part of the boot sequence. If you have problems,
-# set this option to 'text' and GRUB will tell Linux to boot in normal text mode.
+# set this option to 'text' and GRUB will tell Linux to boot in normal text
+# mode.
   gfxpayload_linux: 'keep'
 # Normally, grub-mkconfig will try to use the external os-prober program, if
 # installed, to discover other operating systems installed on the same system

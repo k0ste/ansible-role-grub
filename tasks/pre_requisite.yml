@@ -1,8 +1,10 @@
 ---
 - name: grub | Add the OS specific variables
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
+  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] +
+                    '.yml' }}"
 - name: grub | Check grub-mkconfig exists
-  command: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] + ' --version' }}"
+  command: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
+               ' --version' }}"
   register: "grub_rc"
 - assert:
     that:
