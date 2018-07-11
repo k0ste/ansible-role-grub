@@ -4,7 +4,7 @@ Deploy grub default configuration and make grub.cfg
 
 ## Requirements
 
-* Ansible 2.4;
+* Ansible 2.5;
 
 ## Example configuration
 

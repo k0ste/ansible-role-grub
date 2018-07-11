@@ -6,7 +6,7 @@
     owner: "root"
     group: "root"
     mode: "0644"
-    validate: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
-                  ' %s' }}"
+    validate: "{{
+      hostvars[inventory_hostname]['grub_mkconfig_command'] + ' %s' }}"
   notify:
   - "Deploy grub.conf"
