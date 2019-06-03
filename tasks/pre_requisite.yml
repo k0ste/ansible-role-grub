@@ -11,3 +11,4 @@
     that:
     - "grub_rc.rc == 0"
     msg: "'grub-mkconfig' not found."
+    quiet: "true"
