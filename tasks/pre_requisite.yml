@@ -1,14 +1,15 @@
 ---
 - name: grub | Add the OS specific variables
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] +
-                    '.yml' }}"
+  ansible.builtin.include_vars:
+    file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: grub | Check grub-mkconfig binary
-  command: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
-               ' --version' }}"
+  ansible.builtin.command:
+    cmd: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
+      ' --version' }}"
   register: "grub_rc"
 - name: grub | Assert that grub-mkconfig is present
-  assert:
+  ansible.builtin.assert:
     that:
-    - "grub_rc.rc == 0"
-    msg: "'grub-mkconfig' not found."
+      - "grub_rc['rc'] == 0"
+    msg: "'grub-mkconfig' binary not found."
     quiet: "true"

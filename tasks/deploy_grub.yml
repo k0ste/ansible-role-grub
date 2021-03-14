@@ -1,6 +1,6 @@
 ---
 - name: grub | Deploy grub default configuration
-  template:
+  ansible.builtin.template:
     src: "grub.j2"
     dest: "/etc/default/grub"
     owner: "root"
@@ -9,4 +9,4 @@
     validate: "{{
       hostvars[inventory_hostname]['grub_mkconfig_command'] + ' %s' }}"
   notify:
-  - "Deploy grub.conf"
+    - "Deploy grub.conf"
