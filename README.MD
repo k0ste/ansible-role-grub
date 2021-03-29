@@ -10,8 +10,10 @@ Deploy grub default configuration and make grub.cfg
 
 ```yaml
 ---
-# Set to true to execute grub-mkconfig and override real boot config.
+# Set to true to execute grub-mkconfig and override real boot config
 grub_deploy_grub_conf: 'true'
+# EFI or MBR
+grub_deploy_boot_type: 'mbr'
 
 grub:
 # The file /etc/default/grub controls the operation of grub-mkconfig.

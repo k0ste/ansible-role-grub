@@ -13,3 +13,18 @@
       - "grub_rc['rc'] == 0"
     msg: "'grub-mkconfig' binary not found."
     quiet: "true"
+- name: grub | Set facts about grub role
+  ansible.builtin.set_fact:
+    grub_boot_conf_dest: "{{
+      hostvars[inventory_hostname]['grub_boot_conf_dest_efi'] }}"
+  when:
+    - "hostvars[inventory_hostname]['grub_deploy_boot_type'] is defined"
+    - "hostvars[inventory_hostname]['grub_deploy_boot_type'] in ['efi', 'EFI']"
+- name: grub | Use MBR if boot type is not defined
+  ansible.builtin.set_fact:
+    grub_boot_conf_dest: "{{
+      hostvars[inventory_hostname]['grub_boot_conf_dest_mbr'] }}"
+  when:
+    - "(hostvars[inventory_hostname]['grub_deploy_boot_type'] is defined and
+      hostvars[inventory_hostname]['grub_deploy_boot_type'] in ['mbr', 'MBR'])
+      or hostvars[inventory_hostname]['grub_deploy_boot_type'] is not defined"
