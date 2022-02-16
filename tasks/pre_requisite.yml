@@ -1,29 +1,29 @@
 ---
-- name: grub | Add the OS specific variables
+- name: "grub | Add the OS specific variables"
   ansible.builtin.include_vars:
     file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
-- name: grub | Check grub-mkconfig binary
+- name: "grub | Check grub-mkconfig binary"
   ansible.builtin.command:
     cmd: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
       ' --version' }}"
   register: "grub_rc"
-- name: grub | Assert that grub-mkconfig is present
+- name: "grub | Assert that grub-mkconfig is present"
   ansible.builtin.assert:
     that:
       - "grub_rc['rc'] == 0"
     msg: "'grub-mkconfig' binary not found."
     quiet: "true"
-- name: grub | Set facts about grub role
+- name: "grub | USE EFI if boot type is EFI"
   ansible.builtin.set_fact:
-    grub_boot_conf_dest: "{{
-      hostvars[inventory_hostname]['grub_boot_conf_dest_efi'] }}"
+    grub_boot_conf_dest:
+      "{{ hostvars[inventory_hostname]['grub_boot_conf_dest_efi'] }}"
   when:
     - "hostvars[inventory_hostname]['grub_deploy_boot_type'] is defined"
     - "hostvars[inventory_hostname]['grub_deploy_boot_type'] in ['efi', 'EFI']"
-- name: grub | Use MBR if boot type is not defined
+- name: "grub | Use MBR if boot type is MBR or is not defined"
   ansible.builtin.set_fact:
-    grub_boot_conf_dest: "{{
-      hostvars[inventory_hostname]['grub_boot_conf_dest_mbr'] }}"
+    grub_boot_conf_dest:
+      "{{ hostvars[inventory_hostname]['grub_boot_conf_dest_mbr'] }}"
   when:
     - "(hostvars[inventory_hostname]['grub_deploy_boot_type'] is defined and
       hostvars[inventory_hostname]['grub_deploy_boot_type'] in ['mbr', 'MBR'])

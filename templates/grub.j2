@@ -1,6 +1,6 @@
-{{ '## ' + 'grub' }}
+{{ '## grub' }}
 {{ '# ' + ansible_managed }}
-{{ '# ' + 'Do not edit manually' }}
+{{ '# Do not edit manually' }}
 
 {% for g in hostvars[inventory_hostname]['grub'] %}
 {% if g.default is defined and g.default != '' %}
