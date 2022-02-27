@@ -1,3 +1,4 @@
 ---
-grub_boot_conf_dest: '/boot/grub/grub.cfg'
+grub_boot_conf_dest_mbr: '/boot/grub/grub.cfg'
+grub_boot_conf_dest_efi: '/boot/grub/grub.cfg'
 grub_mkconfig_command: 'grub-mkconfig'
