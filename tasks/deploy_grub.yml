@@ -10,3 +10,12 @@
       "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] + ' %s' }}"
   notify:
     - "Deploy grub.conf"
+- name: "grub | Added kernel-install grub2-mkconfig hook for RedHat"
+  ansible.builtin.template:
+    src: "kernel_install.j2"
+    dest: "/etc/kernel/install.d/99-grub-mkconfig.install"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  when:
+    - "hostvars[inventory_hostname]['ansible_os_family'] == 'RedHat'"

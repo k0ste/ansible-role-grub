@@ -1,0 +1,28 @@
+{{ '#!/bin/bash' }}
+{{ '## 99-grub-mkconfig.install' }}
+{{ '# ' + ansible_managed }}
+{{ '# Do not edit manually' }}
+
+{{ 'if ! [[ $KERNEL_INSTALL_MACHINE_ID ]]
+  then
+    exit 0
+fi
+
+[[ -f /etc/default/grub ]] && . /etc/default/grub
+
+if [[ -d /sys/firmware/efi ]]
+  then
+    GRUB_PATH="/boot/efi/EFI/centos/grub.cfg"
+  else
+    GRUB_PATH="/boot/grub2/grub.cfg"
+fi
+
+COMMAND="${1}"
+
+case "$COMMAND" in
+    add|remove)
+        grub2-mkconfig -o ${GRUB_PATH} >& /dev/null
+        ;;
+    *)
+        ;;
+esac' }}

@@ -6,14 +6,10 @@
   ansible.builtin.command:
     cmd: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
       ' --version' }}"
-  register: "grub_rc"
-- name: "grub | Assert that grub-mkconfig is present"
-  ansible.builtin.assert:
-    that:
-      - "grub_rc['rc'] == 0"
-    msg: "'grub-mkconfig' binary not found."
-    quiet: "true"
-- name: "grub | USE EFI if boot type is EFI"
+  register: "grub_result"
+  changed_when: "grub_result['rc'] == 0"
+  failed_when: "grub_result['rc'] != 0"
+- name: "grub | Use EFI if boot type is EFI"
   ansible.builtin.set_fact:
     grub_boot_conf_dest:
       "{{ hostvars[inventory_hostname]['grub_boot_conf_dest_efi'] }}"

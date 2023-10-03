@@ -1,8 +1,11 @@
 ---
-- name: Deploy grub.conf
+- name: "Deploy grub.conf"
   ansible.builtin.command:
     cmd: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] + ' -o ' +
       vars['grub_boot_conf_dest'] }}"
+  register: "grub_mkconfig_result"
+  changed_when: "grub_mkconfig_result['rc'] == 0"
+  failed_when: "grub_mkconfig_result['rc'] != 0"
   when:
     - "hostvars[inventory_hostname]['grub_deploy_grub_conf'] is defined"
     - "hostvars[inventory_hostname]['grub_deploy_grub_conf'] == 'true'"

@@ -1,7 +1,9 @@
 ---
-- ansible.builtin.import_tasks:
+- name: "grub | Include pre requisite tasks"
+  ansible.builtin.import_tasks:
     file: "pre_requisite.yml"
-- ansible.builtin.include_tasks:
+- name: "grub | Include Prometheus deployment tasks"
+  ansible.builtin.include_tasks:
     file: "deploy_grub.yml"
   when:
     - "hostvars[inventory_hostname]['grub'] is defined"
