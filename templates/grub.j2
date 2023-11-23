@@ -19,13 +19,16 @@
 {{ 'GRUB_DISTRIBUTOR=\"' ~ g['distributor'] ~ '\"' }}
 {% endif %}
 {% if g['terminal_input'] is defined and g['terminal_input'] != '' %}
-{{ 'GRUB_TERMINAL_INPUT=\"' + g['terminal_input'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_TERMINAL_INPUT=\"' + g['terminal_input'] | reject('equalto', '') |
+join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['terminal_output'] is defined and g['terminal_output'] != '' %}
-{{ 'GRUB_TERMINAL_OUTPUT=\"' + g['terminal_output'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_TERMINAL_OUTPUT=\"' + g['terminal_output'] | reject('equalto', '') |
+join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['terminal'] is defined and g['terminal'] != '' %}
-{{ 'GRUB_TERMINAL=\"' + g['terminal'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_TERMINAL=\"' + g['terminal'] | reject('equalto', '') |
+join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['serial_command'] is defined and g['serial_command'] != '' %}
 {{ 'GRUB_SERIAL_COMMAND=\"' + g['serial_command'] + '\"' }}
@@ -65,7 +68,7 @@
 {% endif %}
 {% if g['os_prober_skip_list'] is defined and g['os_prober_skip_list'] != '' %}
 {{ 'GRUB_OS_PROBER_SKIP_LIST=\"' + g['os_prober_skip_list'] |
-  join( ' ' ) + '\"' }}
+  reject('equalto', '') | join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['disable_submenu'] is defined and g['disable_submenu'] != '' %}
 {{ 'GRUB_DISABLE_SUBMENU=\"' + g['disable_submenu'] + '\"' }}
@@ -80,42 +83,48 @@
 {{ 'GRUB_BADRAM=\"' + g['badram'] + '\"' }}
 {% endif %}
 {% if g['preload_modules'] is defined and g['preload_modules'] != '' %}
-{{ 'GRUB_PRELOAD_MODULES=\"' + g['preload_modules'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_PRELOAD_MODULES=\"' + g['preload_modules'] | reject('equalto', '') |
+  join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_linux'] is defined and g['cmdline_linux'] != '' %}
-{{ 'GRUB_CMDLINE_LINUX=\"' + g['cmdline_linux'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_CMDLINE_LINUX=\"' + g['cmdline_linux'] | reject('equalto', '') |
+  join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_linux_default'] is defined and
   g['cmdline_linux_default'] != '' %}
 {{ 'GRUB_CMDLINE_LINUX_DEFAULT=\"' + g['cmdline_linux_default'] |
-  join( ' ' ) + '\"' }}
+  reject('equalto', '') | join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_netbsd'] is defined and g['cmdline_netbsd'] != '' %}
-{{ 'GRUB_CMDLINE_NETBSD=\"' + g['cmdline_netbsd'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_CMDLINE_NETBSD=\"' + g['cmdline_netbsd'] | reject('equalto', '') |
+  join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_netbsd_default'] is defined and
   g['cmdline_netbsd_default'] != '' %}
 {{ 'GRUB_CMDLINE_NETBSD_DEFAULT=\"' + g['cmdline_netbsd_default'] |
-  join( ' ' ) + '\"' }}
+  reject('equalto', '') | join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_gnumach'] is defined and g['cmdline_gnumach'] != '' %}
-{{ 'GRUB_CMDLINE_GNUMACH=\"' + g['cmdline_gnumach'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_CMDLINE_GNUMACH=\"' + g['cmdline_gnumach'] | reject('equalto', '') |
+  join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_xen'] is defined and g['cmdline_xen'] != '' %}
-{{ 'GRUB_CMDLINE_XEN=\"' + g['cmdline_xen'] | join( ' ' ) + '\"' }}
+{{ 'GRUB_CMDLINE_XEN=\"' + g['cmdline_xen'] | reject('equalto', '') |
+  join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_xen_default'] is defined and g['cmdline_xen_default'] != '' %}
 {{ 'GRUB_CMDLINE_XEN_DEFAULT=\"' + g['cmdline_xen_default'] |
-  join( ' ' ) + '\"' }}
+  reject('equalto', '') | join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_linux_xen_replace'] is defined and
   g['cmdline_linux_xen_replace'] != '' %}
 {{ 'GRUB_CMDLINE_LINUX_XEN_REPLACE=\"' + g['cmdline_linux_xen_replace'] |
-  join( ' ' ) + '\"' }}
+  reject('equalto', '') | join( ' ' ) + '\"' }}
 {% endif %}
 {% if g['cmdline_linux_xen_replace_default'] is defined and
   g['cmdline_linux_xen_replace_default'] != '' %}
 {{ 'GRUB_CMDLINE_LINUX_XEN_REPLACE_DEFAULT=\"' +
-  g['cmdline_linux_xen_replace_default'] | join( ' ' ) + '\"' }}
+  g['cmdline_linux_xen_replace_default'] | reject('equalto', '') |
+  join( ' ' ) + '\"' }}
 {% endif %}
 {% endfor %}
