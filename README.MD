@@ -146,6 +146,8 @@ grub:
 # in this case unattended boot is not possible because GRUB will wait for
 # passphrase to unlock encrypted container.
   enable_cryptodisk: ''
+# If false, or not defined - disable grubby menu items (see Fedora/RedHat docs)
+  enable_blscfg: ''
 # Play a tune on the speaker when GRUB starts. This is particularly useful for
 # users unable to see the screen. The value of this option is passed directly
 # to 'play'.

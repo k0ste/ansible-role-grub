@@ -76,6 +76,9 @@ join( ' ' ) + '\"' }}
 {% if g['enable_cryptodisk'] is defined and g['enable_cryptodisk'] != '' %}
 {{ 'GRUB_ENABLE_CRYPTODISK=\"' + g['enable_cryptodisk'] + '\"' }}
 {% endif %}
+{% if g['enable_blscfg'] is defined and g['enable_blscfg'] != '' %}
+{{ 'GRUB_ENABLE_BLSCFG=\"' + g['enable_blscfg'] + '\"' }}
+{% endif %}
 {% if g['init_tune'] is defined and g['init_tune'] != '' %}
 {{ 'GRUB_INIT_TUNE=\"' + g['init_tune'] + '\"' }}
 {% endif %}
