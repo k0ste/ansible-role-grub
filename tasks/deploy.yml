@@ -1,0 +1,46 @@
+---
+- name: "grub | Deploy grub default configuration"
+  ansible.builtin.template:
+    src: "grub.j2"
+    dest: "/etc/default/grub"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    validate:
+      "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] + ' %s' }}"
+- name: "grub | Deploy grub.conf"
+  when:
+    - "hostvars[inventory_hostname]['grub_deploy_grub_conf'] is defined"
+    - "hostvars[inventory_hostname]['grub_deploy_grub_conf'] == 'true'"
+    - "vars['grub_result'] is success"
+  block:
+    - name: "grub | Deploy grub.conf in default place"
+      ansible.builtin.command:
+        cmd: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
+          ' -o ' + vars['grub_boot_conf_dest'] }}"
+      register: "grub_mkconfig_result"
+      changed_when: "grub_mkconfig_result['rc'] == 0"
+      failed_when: "grub_mkconfig_result['rc'] != 0"
+  # https://gitlab.com/redhat/centos-stream/rpms/grub2/-/commit/93795b8bea4372adfe51c12ce3e2c4e419a539b6
+  rescue:
+    - name: "grub | Deploy grub.conf when write was failed"
+      ansible.builtin.command:
+        cmd: "{{ hostvars[inventory_hostname]['grub_mkconfig_command'] +
+          ' -o /tmp/grub.conf' }}"
+      register: "grub_mkconfig_tmp_result"
+      changed_when: "grub_mkconfig_tmp_result['rc'] == 0"
+      failed_when: "grub_mkconfig_tmp_result['rc'] != 0"
+    - name: "grub | Move produced grub.conf file to destination"
+      ansible.builtin.command:
+        cmd: "{{ 'mv /tmp/grub.conf ' + vars['grub_boot_conf_dest'] }}"
+        removes: "/tmp/grub.conf"
+  always:
+    - name: "grub | Added kernel-install grub2-mkconfig hook for RedHat"
+      ansible.builtin.template:
+        src: "kernel_install.j2"
+        dest: "/etc/kernel/install.d/99-grub-mkconfig.install"
+        owner: "root"
+        group: "root"
+        mode: "0755"
+      when:
+        - "hostvars[inventory_hostname]['ansible_os_family'] == 'RedHat'"

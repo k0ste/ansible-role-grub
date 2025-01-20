@@ -4,7 +4,7 @@
     file: "pre_requisite.yml"
 - name: "grub | Include grub deployment tasks"
   ansible.builtin.include_tasks:
-    file: "deploy_grub.yml"
+    file: "deploy.yml"
   when:
     - "hostvars[inventory_hostname]['grub'] is defined"
     - "hostvars[inventory_hostname]['grub'] != ''"

@@ -3,7 +3,7 @@
 {{ '# ' + ansible_managed }}
 {{ '# Do not edit manually' }}
 
-{{ 'if ! [[ $KERNEL_INSTALL_MACHINE_ID ]]
+{{ 'if ! [[ ${KERNEL_INSTALL_MACHINE_ID} ]]
   then
     exit 0
 fi
@@ -18,10 +18,15 @@ if [[ -d /sys/firmware/efi ]]
 fi
 
 COMMAND="${1}"
+GRUB="grub2-mkconfig"
 
-case "$COMMAND" in
+case "${COMMAND}" in
     add|remove)
-        grub2-mkconfig -o ${GRUB_PATH} >& /dev/null
+        if ! "${GRUB}" -o ${GRUB_PATH} >& /dev/null
+          then
+            "${GRUB}" -o /tmp/grub.conf >& /dev/null
+            mv /tmp/grub.conf ${GRUB_PATH} >& /dev/null
+        fi
         ;;
     *)
         ;;
